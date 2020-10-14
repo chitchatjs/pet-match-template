@@ -1,5 +1,7 @@
 # Pet Match (ChitchatJS)
 
+Chitchatjs Guide: https://chitchat.js.org
+
 ```
 U: open pet match
 A: welcome to pet match...
