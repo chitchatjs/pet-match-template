@@ -11,5 +11,4 @@ export default ax
       .reprompt("You can say something like i want small and family dog.")
       .build()
   )
-  .add(ax.goto("PetMatcher"))
   .build();

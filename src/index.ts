@@ -6,7 +6,10 @@ import requestSizeTemperament from "./blocks/requestslots";
 import confirm from "./blocks/confirm";
 
 // welcome
-let init = ax.start().block(ax.compound().add(artifacts).add(welcome).add(builtins).build()).build();
+let init = ax
+  .start()
+  .block(ax.compound().add(artifacts).add(welcome).add(builtins).add(ax.goto("PetMatcher")).build())
+  .build();
 
 // match a pet
 let petMatcher = ax
