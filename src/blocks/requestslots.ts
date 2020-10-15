@@ -1,6 +1,4 @@
-import { alexa as ax, AlexaDialogContext, AlexaEvent } from "@chitchatjs/alexa";
-import { IntentRequest } from "ask-sdk-model";
-import saveSlotsToGlobalState from "./state";
+import { alexa as ax } from "@chitchatjs/alexa";
 
 /**
  * Ensures both size and temperament slots are present
@@ -8,24 +6,15 @@ import saveSlotsToGlobalState from "./state";
  */
 let ensureBothSlotsPresent = ax
   .compound()
-  .add(saveSlotsToGlobalState)
   .add(
     ax
-      .when()
-      .true((c: AlexaDialogContext, e: AlexaEvent) => {
-        return (
-          c.platformState.globalState["size"] !== undefined && c.platformState.globalState["temperament"] !== undefined
-        );
-      })
-      .then(ax.ask("ok, {size} {temperament} dog. Right?").build())
+      .whenMissingSlot("size")
+      .then(ax.ask("which size do you prefer?").build())
       .otherwise(
         ax
-          .when()
-          .true((c: AlexaDialogContext, e: AlexaEvent) => {
-            return c.platformState.globalState["size"] === undefined;
-          })
-          .then(ax.ask("ok, {temperament} dog, how about size?").build())
-          .otherwise(ax.ask("ok, {size} dog, how about temperament?").build())
+          .whenMissingSlot("temperament")
+          .then(ax.ask("okay, {size} dog and what about temperament?").build())
+          .otherwise(ax.ask("you want a {size} dog with {temperament} temperament, right?").build())
           .build()
       )
       .build()

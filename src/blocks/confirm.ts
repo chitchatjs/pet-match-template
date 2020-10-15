@@ -1,4 +1,4 @@
-import { alexa as ax, AlexaDialogContext, AlexaEvent } from "@chitchatjs/alexa";
+import { alexa as ax } from "@chitchatjs/alexa";
 
 /**
  * This block is used to confirm a dog match suggestion.
