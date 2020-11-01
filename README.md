@@ -9,3 +9,5 @@ U: i want a small family dog
 A: ok, a small family dog right?
 A: ok i have a foo dog for small and family ..
 ```
+
+It uses @chitchatjs/plugin-ax-kit plugin to render builtin intents.

@@ -1,5 +1,5 @@
 import { alexa as ax, Locale } from "@chitchatjs/alexa";
-import { axkit } from "@chitchatjs/plugin-ax-kit";
+import { common } from "@chitchatjs/plugin-ax-common";
 
 import artifacts from "./blocks/artifacts";
 import confirm from "./blocks/confirm";
@@ -11,14 +11,22 @@ import welcome from "./blocks/welcome";
  * It will help us render experiences for builtin intents like
  * - Stop, Cancel, Fallback etc.
  */
-let builtins = axkit.builtin.all("You can tell me dog size or temperament to get started.", [
-  Locale.en_US,
-]);
+let builtins = common.defaultHandlers({
+  help: ax.ask("You can tell me dog size or temperament to get started.").build(),
+});
 
 // welcome
 let init = ax
   .start()
-  .block(ax.compound().add(artifacts).add(welcome).add(ax.goto("PetMatcher")).build())
+  .block(
+    ax
+      .compound()
+      .add(artifacts)
+      .add(welcome)
+      .add(builtins)
+      .add(ax.goto("PetMatcher"))
+      .build()
+  )
   .build();
 
 // match a pet
